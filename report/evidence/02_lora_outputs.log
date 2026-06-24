@@ -1,0 +1,18 @@
+outputs/qwen25-1.5b-campus-lora/checkpoint-50/adapter_model.safetensors
+-rw------- 1 root root 36M Jun 23 16:51 outputs/qwen25-1.5b-campus-lora/checkpoint-50/adapter_model.safetensors
+outputs/qwen25-1.5b-campus-lora/checkpoint-50/adapter_config.json
+-rw-r--r-- 1 root root 1.1K Jun 23 16:51 outputs/qwen25-1.5b-campus-lora/checkpoint-50/adapter_config.json
+outputs/qwen25-1.5b-campus-lora/checkpoint-50/trainer_state.json
+-rw-r--r-- 1 root root 2.8K Jun 23 16:51 outputs/qwen25-1.5b-campus-lora/checkpoint-50/trainer_state.json
+outputs/qwen25-1.5b-campus-lora/checkpoint-81/adapter_model.safetensors
+-rw------- 1 root root 36M Jun 23 16:52 outputs/qwen25-1.5b-campus-lora/checkpoint-81/adapter_model.safetensors
+outputs/qwen25-1.5b-campus-lora/checkpoint-81/adapter_config.json
+-rw-r--r-- 1 root root 1.1K Jun 23 16:52 outputs/qwen25-1.5b-campus-lora/checkpoint-81/adapter_config.json
+outputs/qwen25-1.5b-campus-lora/checkpoint-81/trainer_state.json
+-rw-r--r-- 1 root root 4.1K Jun 23 16:52 outputs/qwen25-1.5b-campus-lora/checkpoint-81/trainer_state.json
+outputs/qwen25-1.5b-campus-lora/adapter_model.safetensors
+-rw------- 1 root root 36M Jun 23 16:52 outputs/qwen25-1.5b-campus-lora/adapter_model.safetensors
+outputs/qwen25-1.5b-campus-lora/adapter_config.json
+-rw-r--r-- 1 root root 1.1K Jun 23 16:52 outputs/qwen25-1.5b-campus-lora/adapter_config.json
+outputs/qwen25-1.5b-campus-lora/trainer_state.json
+-rw-r--r-- 1 root root 4.3K Jun 23 16:52 outputs/qwen25-1.5b-campus-lora/trainer_state.json

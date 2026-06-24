@@ -1,0 +1,10 @@
+{
+  "campus_qa": {
+    "file_name": "campus_qa.json",
+    "columns": {
+      "prompt": "instruction",
+      "query": "input",
+      "response": "output"
+    }
+  }
+}

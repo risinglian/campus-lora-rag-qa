@@ -1,0 +1,271 @@
+--- src/rag_utils.py ---
+from __future__ import annotations
+
+import hashlib
+import json
+import math
+import os
+from pathlib import Path
+from typing import Iterable
+
+os.environ.setdefault("ANONYMIZED_TELEMETRY", "False")
+
+
+class HashEmbeddingFunction:
+    """Offline embedding function for ChromaDB.
+
+    It is intentionally simple and deterministic so the project can build a
+    Chroma knowledge base without downloading an extra embedding model.
+    """
+
+    def __init__(self, dimensions: int = 384) -> None:
+        self.dimensions = dimensions
+
+    def name(self) -> str:
+        return "campus_hash_embedding"
+
+    def __call__(self, input: list[str]) -> list[list[float]]:
+        return [self.embed_text(text) for text in input]
+
+    def embed_query(self, input):
+        if isinstance(input, str):
+            return self.embed_text(input)
+        return self(input)
+
+    def embed_documents(self, input: list[str]) -> list[list[float]]:
+        return self(input)
+
+    def embed_text(self, text: str) -> list[float]:
+        vector = [0.0] * self.dimensions
+        for token in self._tokens(text):
+            digest = hashlib.blake2b(token.encode("utf-8"), digest_size=8).digest()
+            bucket = int.from_bytes(digest[:4], "little") % self.dimensions
+            sign = 1.0 if digest[4] % 2 == 0 else -1.0
+            vector[bucket] += sign
+
+        norm = math.sqrt(sum(value * value for value in vector))
+        if norm == 0:
+            return vector
+        return [value / norm for value in vector]
+
+    def _tokens(self, text: str) -> Iterable[str]:
+        compact = "".join(text.lower().split())
+        for char in compact:
+            yield char
+        for index in range(max(0, len(compact) - 1)):
+            yield compact[index : index + 2]
+
+
+def load_docs(path: Path) -> list[dict[str, str]]:
+    with path.open("r", encoding="utf-8") as file:
+        docs = json.load(file)
+    if not isinstance(docs, list):
+        raise ValueError(f"Expected a list of documents in {path}")
+    for index, item in enumerate(docs, start=1):
+        if not isinstance(item, dict):
+            raise ValueError(f"Document {index} is not an object")
+        for field in ["id", "title", "content"]:
+            if not isinstance(item.get(field), str) or not item[field].strip():
+                raise ValueError(f"Document {index} is missing {field}")
+    return docs
+
+
+def get_chroma_collection(db_path: Path, collection_name: str = "campus_knowledge"):
+    import chromadb
+
+    client = chromadb.PersistentClient(path=str(db_path))
+    return client.get_or_create_collection(
+        name=collection_name,
+        embedding_function=HashEmbeddingFunction(),
+        metadata={"hnsw:space": "cosine"},
+    )
+
+
+def query_knowledge(db_path: Path, question: str, top_k: int = 3) -> list[dict[str, object]]:
+    collection = get_chroma_collection(db_path)
+    result = collection.query(query_texts=[question], n_results=top_k)
+    rows: list[dict[str, object]] = []
+    ids = result.get("ids", [[]])[0]
+    documents = result.get("documents", [[]])[0]
+    metadatas = result.get("metadatas", [[]])[0]
+    distances = result.get("distances", [[]])[0]
+    for doc_id, document, metadata, distance in zip(ids, documents, metadatas, distances):
+        rows.append({
+            "id": doc_id,
+            "title": (metadata or {}).get("title", doc_id),
+            "content": document,
+            "distance": distance,
+        })
+    return rows
+--- main.py rag args ---
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+from pathlib import Path
+import sys
+
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+ROOT = Path(__file__).resolve().parent
+sys.path.insert(0, str(ROOT))
+
+from src.rag_utils import query_knowledge
+
+DEFAULT_MODEL = ROOT / "models" / "Qwen2.5-1.5B-Instruct"
+DEFAULT_LORA = ROOT / "outputs" / "qwen25-1.5b-campus-lora"
+DEFAULT_CHROMA = ROOT / "rag_db" / "chroma"
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Campus QA assistant with Base, LoRA, and RAG modes.")
+    parser.add_argument("--mode", choices=["base", "lora", "rag", "lora_rag"], default="base")
+    parser.add_argument("--question", required=True)
+    parser.add_argument("--model-path", default=str(DEFAULT_MODEL))
+    parser.add_argument("--adapter-path", default=str(DEFAULT_LORA))
+    parser.add_argument("--chroma-path", default=str(DEFAULT_CHROMA))
+    parser.add_argument("--top-k", type=int, default=3)
+    parser.add_argument("--max-new-tokens", type=int, default=256)
+    parser.add_argument("--temperature", type=float, default=0.2)
+    parser.add_argument("--top-p", type=float, default=0.9)
+    return parser.parse_args()
+
+
+def build_prompt(question: str, contexts: list[dict[str, object]]) -> str:
+    if not contexts:
+        return question
+    context_text = "\n\n".join(
+        f"[{index}] {item['title']}\n{item['content']}" for index, item in enumerate(contexts, start=1)
+    )
+    return (
+        "请基于以下校园知识回答问题。若知识库没有直接答案，请说明需要以学校最新通知为准。\n\n"
+        f"校园知识：\n{context_text}\n\n"
+        f"问题：{question}"
+    )
+
+
+def load_model(model_path: Path, adapter_path: Path | None):
+    tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
+    dtype = torch.float16 if torch.cuda.is_available() else torch.float32
+    model = AutoModelForCausalLM.from_pretrained(
+        model_path,
+        torch_dtype=dtype,
+        device_map="auto",
+        trust_remote_code=True,
+    )
+
+    if adapter_path is not None:
+        if not adapter_path.exists():
+            raise FileNotFoundError(
+                f"LoRA adapter not found: {adapter_path}. Train first with configs/lora_sft.yaml."
+            )
+        from peft import PeftModel
+
+        model = PeftModel.from_pretrained(model, adapter_path)
+
+    model.eval()
+    return tokenizer, model
+
+
+def generate_answer(tokenizer, model, question: str, max_new_tokens: int, temperature: float, top_p: float) -> str:
+    messages = [
+        {"role": "system", "content": "你是校园智能问答助手，回答应准确、简洁，并提醒用户以学校最新通知为准。"},
+        {"role": "user", "content": question},
+    ]
+    text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+    inputs = tokenizer([text], return_tensors="pt").to(model.device)
+
+    with torch.no_grad():
+        generated = model.generate(
+            **inputs,
+            max_new_tokens=max_new_tokens,
+            temperature=temperature,
+            top_p=top_p,
+            do_sample=temperature > 0,
+        )
+
+    generated = [output[len(input_ids):] for input_ids, output in zip(inputs.input_ids, generated)]
+    return tokenizer.batch_decode(generated, skip_special_tokens=True)[0].strip()
+
+
+def main() -> None:
+    args = parse_args()
+    mode = args.mode
+    use_rag = mode in {"rag", "lora_rag"}
+    use_lora = mode in {"lora", "lora_rag"}
+
+    contexts: list[dict[str, object]] = []
+    if use_rag:
+        chroma_path = Path(args.chroma_path)
+        if not chroma_path.exists():
+            raise FileNotFoundError(
+                f"ChromaDB path not found: {chroma_path}. Run scripts/build_chroma_db.py first."
+            )
+        contexts = query_knowledge(chroma_path, args.question, args.top_k)
+
+    prompt = build_prompt(args.question, contexts)
+    tokenizer, model = load_model(Path(args.model_path), Path(args.adapter_path) if use_lora else None)
+    answer = generate_answer(tokenizer, model, prompt, args.max_new_tokens, args.temperature, args.top_p)
+
+    print(f"mode: {mode}")
+    if contexts:
+        print("retrieved:")
+        for item in contexts:
+            print(f"- {item['title']} distance={item['distance']}")
+    print("answer:")
+    print(answer)
+
+
+if __name__ == "__main__":
+    main()
+--- build_chroma_db.py ---
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+from pathlib import Path
+import sys
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from src.rag_utils import get_chroma_collection, load_docs
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Build the campus ChromaDB knowledge base.")
+    parser.add_argument("--docs", default=str(ROOT / "data" / "campus_docs.json"))
+    parser.add_argument("--db", default=str(ROOT / "rag_db" / "chroma"))
+    parser.add_argument("--collection", default="campus_knowledge")
+    return parser.parse_args()
+
+
+def main() -> None:
+    args = parse_args()
+    docs_path = Path(args.docs)
+    db_path = Path(args.db)
+    db_path.mkdir(parents=True, exist_ok=True)
+
+    docs = load_docs(docs_path)
+    collection = get_chroma_collection(db_path, args.collection)
+
+    collection.upsert(
+        ids=[item["id"] for item in docs],
+        documents=[item["content"] for item in docs],
+        metadatas=[{"title": item["title"]} for item in docs],
+    )
+
+    print(f"docs: {len(docs)}")
+    print(f"db: {db_path}")
+    print(f"collection: {args.collection}")
+    print(f"collection_count: {collection.count()}")
+
+
+if __name__ == "__main__":
+    main()
+--- BGE cache dirs only ---
+cache/huggingface/hub/.locks/models--BAAI--bge-small-zh-v1.5
+cache/huggingface/hub/models--BAAI--bge-small-zh-v1.5
+cache/huggingface/transformers/.locks/models--BAAI--bge-small-zh-v1.5
+cache/huggingface/transformers/models--BAAI--bge-small-zh-v1.5

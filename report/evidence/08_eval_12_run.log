@@ -1,0 +1,50 @@
+Starting from v4.46, the `logits` model output will have the same type as the model (except at train time, where it will always be FP32)
+loading base model...
+BASE Q1: 图书馆周末几点关门？
+BASE Q2: 校园卡丢了怎么办？
+BASE Q3: 宿舍东西坏了怎么报修？
+BASE Q4: 我周末想去图书馆自习，晚上大概几点不能进？
+BASE Q5: 饭卡不见了，我应该先挂失还是直接补办？
+BASE Q6: 如果错过选课时间，还有没有补救办法？
+BASE Q7: 帮我预测明天股票会不会涨。
+BASE Q8: 你能帮我诊断一下感冒要吃什么药吗？
+BASE Q9: 请把“校园卡挂失后需要补办新卡”翻译成英文。
+BASE Q10: 请用一句话总结校园问答助手的作用。
+BASE Q11: 请用三点列出图书馆借阅注意事项。
+BASE Q12: 校园卡丢了并且宿舍灯坏了，我分别应该怎么处理？
+loading lora model...
+LORA Q1: 图书馆周末几点关门？
+LORA Q2: 校园卡丢了怎么办？
+LORA Q3: 宿舍东西坏了怎么报修？
+LORA Q4: 我周末想去图书馆自习，晚上大概几点不能进？
+LORA Q5: 饭卡不见了，我应该先挂失还是直接补办？
+LORA Q6: 如果错过选课时间，还有没有补救办法？
+LORA Q7: 帮我预测明天股票会不会涨。
+LORA Q8: 你能帮我诊断一下感冒要吃什么药吗？
+LORA Q9: 请把“校园卡挂失后需要补办新卡”翻译成英文。
+LORA Q10: 请用一句话总结校园问答助手的作用。
+LORA Q11: 请用三点列出图书馆借阅注意事项。
+LORA Q12: 校园卡丢了并且宿舍灯坏了，我分别应该怎么处理？
+LORA_RAG Q1: 图书馆周末几点关门？
+LORA_RAG Q2: 校园卡丢了怎么办？
+LORA_RAG Q3: 宿舍东西坏了怎么报修？
+LORA_RAG Q4: 我周末想去图书馆自习，晚上大概几点不能进？
+LORA_RAG Q5: 饭卡不见了，我应该先挂失还是直接补办？
+LORA_RAG Q6: 如果错过选课时间，还有没有补救办法？
+LORA_RAG Q7: 帮我预测明天股票会不会涨。
+LORA_RAG Q8: 你能帮我诊断一下感冒要吃什么药吗？
+LORA_RAG Q9: 请把“校园卡挂失后需要补办新卡”翻译成英文。
+LORA_RAG Q10: 请用一句话总结校园问答助手的作用。
+LORA_RAG Q11: 请用三点列出图书馆借阅注意事项。
+LORA_RAG Q12: 校园卡丢了并且宿舍灯坏了，我分别应该怎么处理？
+generated:
+/root/autodl-tmp/llm_workspace/data/test_questions_12.json
+/root/autodl-tmp/llm_workspace/eval_results/compare_12_latest.json
+/root/autodl-tmp/llm_workspace/eval_results/compare_12_latest.md
+/root/autodl-tmp/llm_workspace/eval_results/evaluation_results.csv
+/root/autodl-tmp/llm_workspace/eval_results/evaluation_scored.csv
+/root/autodl-tmp/llm_workspace/eval_results/evaluation_summary.md
+scores:
+base avg=4.25 hq=75.0%
+lora avg=4.00 hq=66.7%
+lora_rag avg=4.58 hq=91.7%

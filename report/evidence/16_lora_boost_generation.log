@@ -1,0 +1,10 @@
+generated evidence files:
+/root/autodl-tmp/llm_workspace/report/evidence/09_lora_config.yaml 1013
+/root/autodl-tmp/llm_workspace/report/evidence/10_adapter_config.json 1089
+/root/autodl-tmp/llm_workspace/report/evidence/11_lora_param_explain.md 2081
+/root/autodl-tmp/llm_workspace/scripts/inspect_lora_trainable_params.py 3269
+/root/autodl-tmp/llm_workspace/report/evidence/12_trainable_params.log 4589
+/root/autodl-tmp/llm_workspace/report/evidence/13_loss_curve_data.csv 1175
+/root/autodl-tmp/llm_workspace/report/image/lora_loss_curve.png 63386
+/root/autodl-tmp/llm_workspace/report/evidence/14_loss_analysis.md 1037
+/root/autodl-tmp/llm_workspace/report/evidence/15_before_after_examples.md 2159

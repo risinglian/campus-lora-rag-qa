@@ -1,0 +1,107 @@
+[
+  {
+    "mode": "base",
+    "question": "图书馆开放时间是什么时候？",
+    "returncode": 0,
+    "stdout": "mode: base\nanswer:\n请注意查看图书馆的官方公告或网站，因为具体的开放时间和活动安排可能会有所变动。通常情况下，图书馆会在开学初发布详细的开放时间表和预约系统。建议您关注学校的官方网站或者图书馆的社交媒体账号获取最新的信息。\n",
+    "stderr": "Starting from v4.46, the `logits` model output will have the same type as the model (except at train time, where it will always be FP32)\n"
+  },
+  {
+    "mode": "base",
+    "question": "校园卡丢了怎么办？",
+    "returncode": 0,
+    "stdout": "mode: base\nanswer:\n如果校园卡丢失了，可以按照以下步骤操作：\n\n1. **立即挂失**：第一时间联系校方或相关部门进行挂失处理。\n2. **补办手续**：根据学校规定，可能需要提供身份证明和相关材料来申请补办新卡。\n3. **报告遗失情况**：向辅导员或相关部门报告卡片的丢失情况，以便他们能够采取必要的安全措施。\n\n请务必及时处理，以免影响个人使用和学习生活。\n",
+    "stderr": "Starting from v4.46, the `logits` model output will have the same type as the model (except at train time, where it will always be FP32)\n"
+  },
+  {
+    "mode": "base",
+    "question": "宿舍网络慢怎么办？",
+    "returncode": 0,
+    "stdout": "mode: base\nanswer:\n可以尝试重启路由器或更换网络线；如果问题依旧，可能是线路故障，建议联系物业维修。同时，注意检查是否有其他设备占用过多带宽，影响整体网络速度。\n",
+    "stderr": "Starting from v4.46, the `logits` model output will have the same type as the model (except at train time, where it will always be FP32)\n"
+  },
+  {
+    "mode": "base",
+    "question": "如何申请缓考？",
+    "returncode": 0,
+    "stdout": "mode: base\nanswer:\n学生需要提前向所在学院提出书面申请，说明原因和具体时间，由学院审核后报教务处审批。\n",
+    "stderr": "Starting from v4.46, the `logits` model output will have the same type as the model (except at train time, where it will always be FP32)\n"
+  },
+  {
+    "mode": "base",
+    "question": "就业推荐表怎么打印？",
+    "returncode": 0,
+    "stdout": "mode: base\nanswer:\n就业推荐表通常由学校教务处或学生事务部门提供，你需要按照学校的具体要求和流程来获取并填写这份表格。一般来说，你可以通过以下步骤操作：\n\n1. 登录学校官方网站，找到“就业信息”或者“学生服务”等栏目。\n2. 在该栏目下查找就业推荐表的下载链接或联系方式。\n3. 按照指引下载并填写就业推荐表。\n\n请确保你了解具体的使用说明和注意事项，因为不同学校可能有不同的规定。如果有任何疑问，建议直接联系学校相关部门进行咨询。\n",
+    "stderr": "Starting from v4.46, the `logits` model output will have the same type as the model (except at train time, where it will always be FP32)\n"
+  },
+  {
+    "mode": "lora",
+    "question": "图书馆开放时间是什么时候？",
+    "returncode": 0,
+    "stdout": "mode: lora\nanswer:\n一般周一至周五9:00-21:30，周末及节假日以公告或服务台答复为准。 如遇特殊情况，请以学校最新通知或相关部门答复为准。\n",
+    "stderr": "Starting from v4.46, the `logits` model output will have the same type as the model (except at train time, where it will always be FP32)\n"
+  },
+  {
+    "mode": "lora",
+    "question": "校园卡丢了怎么办？",
+    "returncode": 0,
+    "stdout": "mode: lora\nanswer:\n请尽快挂失补办，或到保卫处办理临时身份证明。 如遇特殊情况，请以学校最新通知或相关部门答复为准。\n",
+    "stderr": "Starting from v4.46, the `logits` model output will have the same type as the model (except at train time, where it will always be FP32)\n"
+  },
+  {
+    "mode": "lora",
+    "question": "宿舍网络慢怎么办？",
+    "returncode": 0,
+    "stdout": "mode: lora\nanswer:\n可检查网关和设备连接状态，必要时联系宿管或信息中心。 如遇特殊情况，请以学校最新通知或相关部门答复为准。\n",
+    "stderr": "Starting from v4.46, the `logits` model output will have the same type as the model (except at train time, where it will always be FP32)\n"
+  },
+  {
+    "mode": "lora",
+    "question": "如何申请缓考？",
+    "returncode": 0,
+    "stdout": "mode: lora\nanswer:\n考试成绩不及格且无违纪行为的学生可申请缓考。 如遇特殊情况，请以学校最新通知或相关部门答复为准。\n",
+    "stderr": "Starting from v4.46, the `logits` model output will have the same type as the model (except at train time, where it will always be FP32)\n"
+  },
+  {
+    "mode": "lora",
+    "question": "就业推荐表怎么打印？",
+    "returncode": 0,
+    "stdout": "mode: lora\nanswer:\n毕业生就业推荐表可在就业系统或学院就业办公室下载并填写，按流程提交审核后打印。 如遇特殊情况，请以学校最新通知或相关部门答复为准。\n",
+    "stderr": "Starting from v4.46, the `logits` model output will have the same type as the model (except at train time, where it will always be FP32)\n"
+  },
+  {
+    "mode": "lora_rag",
+    "question": "图书馆开放时间是什么时候？",
+    "returncode": 0,
+    "stdout": "mode: lora_rag\nretrieved:\n- 图书馆服务知识 distance=0.5487280488014221\n- 教务服务知识 distance=0.8335052728652954\n- 综合服务服务知识 distance=0.8636443018913269\nanswer:\n图书馆通常在教学周每日开放，具体开放时间以图书馆官网和现场公告为准。考试周可能延长开放时间。 如遇特殊情况，请以学校最新通知或相关部门答复为准。\n",
+    "stderr": "Starting from v4.46, the `logits` model output will have the same type as the model (except at train time, where it will always be FP32)\n"
+  },
+  {
+    "mode": "lora_rag",
+    "question": "校园卡丢了怎么办？",
+    "returncode": 0,
+    "stdout": "mode: lora_rag\nretrieved:\n- 校园卡服务知识 distance=0.4940858483314514\n- 网络服务知识 distance=0.7154088616371155\n- 医疗服务知识 distance=0.791010320186615\nanswer:\n请第一时间在校园卡服务平台或服务大厅挂失，随后按流程补办新卡。 如遇特殊情况，请以学校最新通知为准。\n",
+    "stderr": "Starting from v4.46, the `logits` model output will have the same type as the model (except at train time, where it will always be FP32)\n"
+  },
+  {
+    "mode": "lora_rag",
+    "question": "宿舍网络慢怎么办？",
+    "returncode": 0,
+    "stdout": "mode: lora_rag\nretrieved:\n- 宿舍服务知识 distance=0.5611531734466553\n- 网络服务知识 distance=0.7082940340042114\n- 校园卡服务知识 distance=0.7280710935592651\nanswer:\n可先重启终端和路由设备，仍异常时联系校园网络服务中心报修。 如遇特殊情况，请以学校最新通知为准。\n",
+    "stderr": "Starting from v4.46, the `logits` model output will have the same type as the model (except at train time, where it will always be FP32)\n"
+  },
+  {
+    "mode": "lora_rag",
+    "question": "如何申请缓考？",
+    "returncode": 0,
+    "stdout": "mode: lora_rag\nretrieved:\n- 教务服务知识 distance=0.7382423877716064\n- 考试服务知识 distance=0.7980514764785767\n- 奖助服务知识 distance=0.8119049072265625\nanswer:\n学生通常需要在规定时间内提交缓考申请和证明材料，经学院和教务部门审核后生效。 如遇特殊情况，请以学校最新通知为准。\n",
+    "stderr": "Starting from v4.46, the `logits` model output will have the same type as the model (except at train time, where it will always be FP32)\n"
+  },
+  {
+    "mode": "lora_rag",
+    "question": "就业推荐表怎么打印？",
+    "returncode": 0,
+    "stdout": "mode: lora_rag\nretrieved:\n- 就业服务知识 distance=0.5712062120437622\n- 医疗服务知识 distance=0.9013510346412659\n- 奖助服务知识 distance=0.9193254709243774\nanswer:\n就业推荐表一般在就业系统填写并提交审核，通过后可下载或到学院办理盖章。 如遇特殊情况，请以学校最新通知为准。\n",
+    "stderr": "Starting from v4.46, the `logits` model output will have the same type as the model (except at train time, where it will always be FP32)\n"
+  }
+]

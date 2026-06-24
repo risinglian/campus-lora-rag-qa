@@ -1,0 +1,49 @@
+source: safetensors tensor shape statistics, no fabricated values
+base_model_path: /root/autodl-tmp/llm_workspace/models/Qwen2.5-1.5B-Instruct
+base_safetensors_files: 1
+base_model_params: 1543714304
+base_model_params_B: 1.543714
+base_tensor_count: 338
+adapter_model_path: /root/autodl-tmp/llm_workspace/outputs/qwen25-1.5b-campus-lora/adapter_model.safetensors
+adapter_tensors: 392
+adapter_params_trainable_lora: 9232384
+adapter_params_M: 9.232384
+adapter_size_MB: 35.2679
+trainable_ratio_vs_base_percent: 0.598063
+trainable_ratio_vs_base_plus_adapter_percent: 0.594507
+peft_r: 8
+peft_lora_alpha: 16
+peft_lora_dropout: 0.05
+peft_target_modules: ['k_proj', 'q_proj', 'o_proj', 'gate_proj', 'down_proj', 'v_proj', 'up_proj']
+peft_task_type: CAUSAL_LM
+first_30_adapter_tensors:
+- adapter_model.safetensors :: base_model.model.model.layers.0.mlp.down_proj.lora_A.weight :: shape=(8, 8960) :: params=71680
+- adapter_model.safetensors :: base_model.model.model.layers.0.mlp.down_proj.lora_B.weight :: shape=(1536, 8) :: params=12288
+- adapter_model.safetensors :: base_model.model.model.layers.0.mlp.gate_proj.lora_A.weight :: shape=(8, 1536) :: params=12288
+- adapter_model.safetensors :: base_model.model.model.layers.0.mlp.gate_proj.lora_B.weight :: shape=(8960, 8) :: params=71680
+- adapter_model.safetensors :: base_model.model.model.layers.0.mlp.up_proj.lora_A.weight :: shape=(8, 1536) :: params=12288
+- adapter_model.safetensors :: base_model.model.model.layers.0.mlp.up_proj.lora_B.weight :: shape=(8960, 8) :: params=71680
+- adapter_model.safetensors :: base_model.model.model.layers.0.self_attn.k_proj.lora_A.weight :: shape=(8, 1536) :: params=12288
+- adapter_model.safetensors :: base_model.model.model.layers.0.self_attn.k_proj.lora_B.weight :: shape=(256, 8) :: params=2048
+- adapter_model.safetensors :: base_model.model.model.layers.0.self_attn.o_proj.lora_A.weight :: shape=(8, 1536) :: params=12288
+- adapter_model.safetensors :: base_model.model.model.layers.0.self_attn.o_proj.lora_B.weight :: shape=(1536, 8) :: params=12288
+- adapter_model.safetensors :: base_model.model.model.layers.0.self_attn.q_proj.lora_A.weight :: shape=(8, 1536) :: params=12288
+- adapter_model.safetensors :: base_model.model.model.layers.0.self_attn.q_proj.lora_B.weight :: shape=(1536, 8) :: params=12288
+- adapter_model.safetensors :: base_model.model.model.layers.0.self_attn.v_proj.lora_A.weight :: shape=(8, 1536) :: params=12288
+- adapter_model.safetensors :: base_model.model.model.layers.0.self_attn.v_proj.lora_B.weight :: shape=(256, 8) :: params=2048
+- adapter_model.safetensors :: base_model.model.model.layers.1.mlp.down_proj.lora_A.weight :: shape=(8, 8960) :: params=71680
+- adapter_model.safetensors :: base_model.model.model.layers.1.mlp.down_proj.lora_B.weight :: shape=(1536, 8) :: params=12288
+- adapter_model.safetensors :: base_model.model.model.layers.1.mlp.gate_proj.lora_A.weight :: shape=(8, 1536) :: params=12288
+- adapter_model.safetensors :: base_model.model.model.layers.1.mlp.gate_proj.lora_B.weight :: shape=(8960, 8) :: params=71680
+- adapter_model.safetensors :: base_model.model.model.layers.1.mlp.up_proj.lora_A.weight :: shape=(8, 1536) :: params=12288
+- adapter_model.safetensors :: base_model.model.model.layers.1.mlp.up_proj.lora_B.weight :: shape=(8960, 8) :: params=71680
+- adapter_model.safetensors :: base_model.model.model.layers.1.self_attn.k_proj.lora_A.weight :: shape=(8, 1536) :: params=12288
+- adapter_model.safetensors :: base_model.model.model.layers.1.self_attn.k_proj.lora_B.weight :: shape=(256, 8) :: params=2048
+- adapter_model.safetensors :: base_model.model.model.layers.1.self_attn.o_proj.lora_A.weight :: shape=(8, 1536) :: params=12288
+- adapter_model.safetensors :: base_model.model.model.layers.1.self_attn.o_proj.lora_B.weight :: shape=(1536, 8) :: params=12288
+- adapter_model.safetensors :: base_model.model.model.layers.1.self_attn.q_proj.lora_A.weight :: shape=(8, 1536) :: params=12288
+- adapter_model.safetensors :: base_model.model.model.layers.1.self_attn.q_proj.lora_B.weight :: shape=(1536, 8) :: params=12288
+- adapter_model.safetensors :: base_model.model.model.layers.1.self_attn.v_proj.lora_A.weight :: shape=(8, 1536) :: params=12288
+- adapter_model.safetensors :: base_model.model.model.layers.1.self_attn.v_proj.lora_B.weight :: shape=(256, 8) :: params=2048
+- adapter_model.safetensors :: base_model.model.model.layers.10.mlp.down_proj.lora_A.weight :: shape=(8, 8960) :: params=71680
+- adapter_model.safetensors :: base_model.model.model.layers.10.mlp.down_proj.lora_B.weight :: shape=(1536, 8) :: params=12288

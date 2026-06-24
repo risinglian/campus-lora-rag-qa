@@ -1,0 +1,50 @@
+{
+  "created_at": "2026-06-23 16:55:24",
+  "base_model": "/root/autodl-tmp/llm_workspace/models/Qwen2.5-1.5B-Instruct",
+  "adapter_dir": "/root/autodl-tmp/llm_workspace/outputs/qwen25-1.5b-campus-lora",
+  "train_config": "/root/autodl-tmp/llm_workspace/configs/lora_sft.yaml",
+  "dataset": "/root/autodl-tmp/llm_workspace/data/campus_qa.json",
+  "train_results": {
+    "epoch": 3.0,
+    "total_flos": 386497651064832.0,
+    "train_loss": 1.2578617422669023,
+    "train_runtime": 150.2109,
+    "train_samples_per_second": 4.314,
+    "train_steps_per_second": 0.539
+  },
+  "eval_results": {
+    "epoch": 3.0,
+    "eval_loss": 0.730340301990509,
+    "eval_runtime": 1.1503,
+    "eval_samples_per_second": 20.865,
+    "eval_steps_per_second": 20.865
+  },
+  "all_results": {
+    "epoch": 3.0,
+    "eval_loss": 0.730340301990509,
+    "eval_runtime": 1.1503,
+    "eval_samples_per_second": 20.865,
+    "eval_steps_per_second": 20.865,
+    "total_flos": 386497651064832.0,
+    "train_loss": 1.2578617422669023,
+    "train_runtime": 150.2109,
+    "train_samples_per_second": 4.314,
+    "train_steps_per_second": 0.539
+  },
+  "artifacts": [
+    "outputs/qwen25-1.5b-campus-lora/README.md",
+    "outputs/qwen25-1.5b-campus-lora/adapter_config.json",
+    "outputs/qwen25-1.5b-campus-lora/adapter_model.safetensors",
+    "outputs/qwen25-1.5b-campus-lora/all_results.json",
+    "outputs/qwen25-1.5b-campus-lora/chat_template.jinja",
+    "outputs/qwen25-1.5b-campus-lora/eval_results.json",
+    "outputs/qwen25-1.5b-campus-lora/tokenizer.json",
+    "outputs/qwen25-1.5b-campus-lora/tokenizer_config.json",
+    "outputs/qwen25-1.5b-campus-lora/train_results.json",
+    "outputs/qwen25-1.5b-campus-lora/trainer_log.jsonl",
+    "outputs/qwen25-1.5b-campus-lora/trainer_state.json",
+    "outputs/qwen25-1.5b-campus-lora/training_args.bin",
+    "outputs/qwen25-1.5b-campus-lora/training_eval_loss.png",
+    "outputs/qwen25-1.5b-campus-lora/training_loss.png"
+  ]
+}

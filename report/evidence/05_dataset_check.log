@@ -1,0 +1,23 @@
+campus_qa_paths: ['data/campus_qa.json']
+path: data/campus_qa.json
+records: 240
+key_patterns: Counter({('category', 'id', 'input', 'instruction', 'output'): 240})
+missing_required_fields_count: 0
+duplicate_full_records: 0
+sample_0: {"id": "图书馆_01_01", "category": "图书馆", "instruction": "图书馆开放时间是什么时候？", "input": "", "output": "图书馆通常在教学周每日开放，具体开放时间以图书馆官网和现场公告为准。考试周可能延长开放时间。 如遇特殊情况，请以学校最新通知或相关部门答复为准。"}
+dataset: /root/autodl-tmp/llm_workspace/data/campus_qa.json
+records: 240
+categories: 12
+- 医疗: 20
+- 图书馆: 20
+- 奖助: 20
+- 宿舍: 20
+- 就业: 20
+- 教务: 20
+- 校园卡: 20
+- 研究生: 20
+- 综合服务: 20
+- 网络: 20
+- 考试: 20
+- 食堂: 20
+validation: PASSED
